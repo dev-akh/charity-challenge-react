@@ -22,3 +22,30 @@
 .swal2-cancel , .swal2-confirm { 
     margin-top:0px !important;
 }
+
+.typing-animation {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #ebebeb;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: typing 1s infinite;
+}
+
+@keyframes typing {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

@@ -9,6 +9,7 @@ const Card = ({ charity }) => {
 
   const dispatch = useDispatch();
   const payments = useSelector((state) => state.payments);
+  const error = useSelector((state) => state.error);
   const [showPay, setShowPay] = useState(false);
   const [selectedAmount, setSelectAmount] = useState(0);
   const [selectAmountError, setselectAmountError] = useState('');
@@ -20,11 +21,12 @@ const Card = ({ charity }) => {
 
   const toggleShowPay = () => {
     setShowPay(!showPay);
+    setSelectAmount(0);
   };
 
   const handlePayment = () => {
     if(selectedAmount == 0) {
-      setselectAmountError("Select a amount to make this donation!");
+      setselectAmountError("Select an amount to make this donation!");
       return;
     }
     const largestId = payments.reduce((maxId, payment) => Math.max(maxId, payment.id), -Infinity);
@@ -47,20 +49,30 @@ const Card = ({ charity }) => {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(storePayment(payment));
-        window.location.reload(true);
+        try {
+          dispatch(storePayment(payment));
+          if(error == null) {
+            Swal.fire({
+              title: "You did great thing!",
+              text: "Your donation makes the world better. Thank you!",
+              icon: "success"
+            });
+            setShowPay(!showPay);
+            setSelectAmount(0);
+          }
+        } catch (error) {
+          console.error("An error occurred while dispatching payment:", error);
+        }
       }
     });
   }
 
   return (
-    <div className="paymentCards shadow rounded" >
-      {showPay && (
-        <Option toggleShowPay={toggleShowPay} setPaymentAmount={ setPaymentAmount } handlePayment={handlePayment} selectAmountError={selectAmountError}/>
-      )}
-      <img src='/images/charities/save-the-children.jpeg' className='w-100' alt='Save the Children'/>
+    <div className="paymentCards shadow rounded">
+      <Option showPay={showPay} toggleShowPay={toggleShowPay} setPaymentAmount={ setPaymentAmount } handlePayment={handlePayment} selectAmountError={selectAmountError} currency ={charity.currency}/>
+      <img src={'/images/' + charity.image ?? '/charities/save-the-children.jpeg'} className='w-100 charity-image' alt={charity.name}/>
       <Row className='p-4'>
-        <Col> {charity.name} </Col>
+        <Col xs lg={8}> {charity.name} </Col>
         <Col className='text-end'> 
           <Button className='btn btn-sm btn-primary bg-white text-primary' onClick={toggleShowPay} >Donate</Button>
         </Col>

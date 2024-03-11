@@ -4,7 +4,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import PaymentCard from '../components/payment/Card';
 import './Charity.css'
 
-
 const Charity = ({ totalDonate, charities, error }) => {
   const paymentCards = charities.map((charity, i) => (
     <Col key={i} xs="12" lg="6" className='p-3' >
@@ -12,26 +11,17 @@ const Charity = ({ totalDonate, charities, error }) => {
     </Col>
   ));
 
-  const style = {
-    color: 'red',
-    margin: '1em 0',
-    fontWeight: 'bold',
-    fontSize: '16px',
-    textAlign: 'center',
-  };
-
-  // const donate = this.props.donate;
-  // const message = this.props.message;
-
   return (
     <Container>
       <Row> 
-        <Col className='text-center'>
-          <h1>Tamboon React</h1>
+        <Col className='text-center mt-3'>
+          <h1>Omise Tamboon React</h1>
           <p>All donations: {totalDonate}</p>
         </Col>
       </Row> 
-      <p style={style}>{error}</p>
+      <Row> 
+        <Col> <p className='error-message'>{error}</p> </Col>
+      </Row>
       <Row> 
         {paymentCards}
       </Row>

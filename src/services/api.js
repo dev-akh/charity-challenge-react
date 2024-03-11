@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'http://localhost:3001';
+import { API_BASE_URL } from '../config/app';
 
 export const ENDPOINTS = {
     charities: '/charities',
@@ -9,7 +8,7 @@ export const ENDPOINTS = {
   };
 
 const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_BASE_URL,
     headers: {
         common: {
         'Content-Type': 'application/json',
