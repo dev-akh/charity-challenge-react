@@ -68,3 +68,20 @@ You can push the project to your Github then share the link with us, or you can 
 If you notice more bugs in the original implementation you can add fixes for those as well. You won't be penalized if you don't. However we ask you not to add more features than the one given in the mission list.
 
 Let's rock! :metal:
+
+===================================================================
+# Project Setup and Running
+## Prerequisite
+- Node version `16^`
+
+## Clone this repository
+- `git clone https://github.com/dev-akh/charity-challenge-react.git`
+
+## Install requirements
+- `cd charity-challenge-react`
+- `npm i`
+
+## Running Project
+- 1<sup>st</sup> terminal `npm run server` // this will run with port 3001
+- 2<sup>nd</sup> terminal `npm run client` // this will run with port 3000 & negivate http://localhost:3000 
+
